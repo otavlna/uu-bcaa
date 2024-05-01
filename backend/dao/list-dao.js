@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const crypto = require("crypto");
+const uuidv7 = require("uuidv7");
 
 const listFolderPath = path.join(__dirname, "storage", "list");
 
@@ -17,7 +17,7 @@ function get(listId) {
 
 function create(list) {
   try {
-    list.id = crypto.randomBytes(16).toString("hex");
+    list.id = uuidv7();
     const filePath = path.join(listFolderPath, `${list.id}.json`);
     const fileData = JSON.stringify(list);
     fs.writeFileSync(filePath, fileData, "utf8");
